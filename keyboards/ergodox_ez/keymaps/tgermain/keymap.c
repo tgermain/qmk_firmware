@@ -3,6 +3,8 @@
 #include "action_layer.h"
 #include "keymap_french.h"
 
+#define LED_BRIGHTNESS_VLO 5
+
 #define BASE 0 // default layer
 #define SYMB 1 // symbols
 #define MDIA 2 // media keys
@@ -252,28 +254,31 @@ const uint16_t PROGMEM fn_actions[] = {
 };
 
 // Runs whenever there is a layer state change.
+// state is a 32 bit where each bit on is a layer activated
+// note that the base layer is always active which mean our first is always at 1
 uint32_t layer_state_set_user(uint32_t state) {
-
-    uint8_t layer = biton32(state);
-
     ergodox_board_led_off();
-    ergodox_led_all_set(LED_BRIGHTNESS_LO);
+    ergodox_led_all_set(LED_BRIGHTNESS_VLO);
     ergodox_right_led_1_off();
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
-    switch (layer) {
-      // TODO: Make this relevant to the ErgoDox EZ.
-        case 1:
-            ergodox_right_led_3_on();
-            break;
-        case 2:
-            ergodox_right_led_2_on();
-            break;
-        case 3:
-            ergodox_right_led_1_on();
-        default:
-            // none
-            break;
+
+
+    // to set our leds on our off we rely on bitwise and mask operations
+    uint32_t symbol_mask = 0x00000003; // last 4 bits : 0011 -> base layer + layer 1
+    uint32_t media_mask  = 0x00000005; // last 4 bits : 0101 -> base layer + layer 2
+    uint32_t game_mask   = 0x00000009; // last 4 bits : 1001 -> base layer + layer 3
+
+    if (state & symbol_mask) {
+        ergodox_right_led_3_on(); // blue led low for symbol layer
+    }
+
+    if (state & media_mask) {
+        ergodox_right_led_2_on(); // green led low for media layer
+    }
+
+    if (state & game_mask) {
+        ergodox_right_led_1_on(); // red led low for game layer
     }
 
     return state;

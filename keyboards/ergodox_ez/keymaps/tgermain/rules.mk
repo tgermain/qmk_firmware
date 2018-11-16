@@ -1,7 +1,7 @@
 COMMAND_ENABLE     = yes # Commands for debug and configuration
 EXTRAKEY_ENABLE    = yes # Audio control and System control
 KEY_LOCK_ENABLE    = yes # Enable the KC_LOCK key
-MOUSEKEY_ENABLE    = yes # Mouse keys
+MOUSEKEY_ENABLE    = no  # Mouse keys
 NKRO_ENABLE        = yes # USB Nkey Rollover - for issues, see github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 TAP_DANCE_ENABLE   = yes # Enable the tap dance feature.
 

@@ -11,8 +11,7 @@
 #define GAME 3 // default layer without special binding on space and shifts
 
 enum {
-  l_ez_prt = 0,
-  r_ez_prt,
+  TD_LSFT_CLCK = 0
 };
 
 static void tap_dance_r_ez_prt (qk_tap_dance_state_t *state, void *user_data) {
@@ -252,6 +251,43 @@ const uint16_t PROGMEM fn_actions[] = {
 	[0] = ACTION_LAYER_TAP_KEY(SYMB, KC_SPC), // space when tap, hold : momentary Layer 1 (symbols)
     [1] = ACTION_LAYER_TAP_TOGGLE(SYMB),                // FN1 - Momentary Layer 1 (Symbols)
 };
+
+
+//KC_CAPSLOCK
+static bool shift_disabled = false;
+static bool delete_pressed = false;
+/**
+ * Change shift+backspace into delete and do not register the shift modifier.
+ */
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+  if(keycode == KC_BSPC) {
+    if (record->event.pressed) {
+      if(keyboard_report->mods & MOD_BIT(KC_LSFT)) {
+        delete_pressed = true;
+        shift_disabled = true;
+        unregister_code(KC_LSFT);
+        register_code(KC_DEL);
+        return false;
+      }
+    } else if(delete_pressed) {
+      delete_pressed = false;
+      unregister_code(KC_DEL);
+
+      if(shift_disabled) {
+        shift_disabled = false;
+        register_code(KC_LSFT);
+      }
+      return false;
+    }
+  } else if(keycode == KC_LSFT && !record->event.pressed && delete_pressed) {
+    delete_pressed = false;
+    shift_disabled = false;
+    unregister_code(KC_DEL);
+    register_code(KC_BSPC);
+    return false;
+  }
+  return true;
+}
 
 // Runs whenever there is a layer state change.
 // state is a 32 bit where each bit on is a layer activated

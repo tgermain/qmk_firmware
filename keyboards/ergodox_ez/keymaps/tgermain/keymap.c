@@ -9,7 +9,8 @@
 #define SYMB 1 // symbols
 #define MDIA 2 // media keys
 #define GAME 3 // default layer without special binding on space and shifts
-#define ACC  4 // accented characters
+#define CLMK 4 // colemak DH characters
+#define ACC  5 // accented characters
 
 // accented characters
 #define M_ACIRC 2 // â
@@ -35,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * | ESC    |   1  |   2  |   3  |   4  |   5  |  L3  |           |      |   6  |   7  |   8  |   9  |   0  |        |
+ * | ESC    |   1  |   2  |   3  |   4  |   5  |  L3  |           | CLMK |   6  |   7  |   8  |   9  |   0  |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | Tab    |   Q  |   W  |   E  |   R  |   T  |  Alt |           | Media|   Y  |   U  |   I  |   O  |   P  |        |
  * |--------+------+------+------+------+------|  tab |           |      |------+------+------+------+------+--------|
@@ -49,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        |altTab| LGui |       | Alt  |Ctrl/Esc|
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      | Home |       | PgUp |        |      |
- *                                 | Space|Backsp|------|       |------| Delete |Enter |
+ *                                 | Space|Backsp|------|       |------| RShift |Enter |
  *                                 |/L1   |ace   | End  |       | PgDn |        |      |
  *                                 `--------------------'       `----------------------'
  */
@@ -65,14 +66,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                               KC_HOME,
                                               F(0), KC_BSPC,  KC_END,
         // right hand
-        KC_TRNS,    KC_6,   KC_7,   KC_8,     KC_9,     KC_0,     KC_TRNS,
+        TG(CLMK),    KC_6,   KC_7,   KC_8,     KC_9,     KC_0,     KC_TRNS,
         TG(MDIA),   KC_Y,   KC_U,   KC_I,     KC_O,     KC_P,     KC_QUOT,
-                      KC_H,   KC_J,   KC_K,     KC_L,     KC_SCLN,  FR_SLSH,
+                    KC_H,   KC_J,   KC_K,     KC_L,     KC_SCLN,  FR_SLSH,
         OSL(ACC),   KC_N,   KC_M,   KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
-                              KC_UP,  KC_DOWN,  KC_TRNS,  KC_RALT,  KC_RCTRL,
+                            KC_UP,  KC_DOWN,  KC_TRNS,  KC_RALT,  KC_RCTRL,
         KC_LALT, CTL_T(KC_ESC),
         KC_PGUP,
-        KC_PGDN, KC_DELETE, KC_ENT
+        KC_PGDN, KC_RSFT, KC_ENT
     ),
 
     /* Keymap 1: Symbol Layer
@@ -203,7 +204,51 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS, KC_TRNS
 ),
 
-/* Keymap 4: accented characters
+/* Keymap 4: Base Colemak Mod-DH layer
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |        |   1  |   2  |   3  |   4  |   5  |      |           |      |   6  |   7  |   8  |   9  |   0  |        |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |        |   Q  |   W  |   F  |   P  |   B  |      |           |      |   J  |   L  |   U  |   Y  |   ;  |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |   A  |   R  |   S  |   T  |   G  |------|           |------|   M  |   N  |   E  |   I  |   O  |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |   Z  |   X  |   C  |   D  |   V  |      |           |      |   K  |   H  |   ,  |   .  |   :  |        |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                                       |      |      |      |      |       |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |      |      |       |      |      |
+ *                                 ,------|------|------|       |------+------+------.
+ *                                 |      |      |      |       |      |      |      |
+ *                                 |      |      |------|       |------|      |      |
+ *                                 |      |      |      |       |      |      |      |
+ *                                 `--------------------'       `--------------------'
+ */
+
+[CLMK] = LAYOUT_ergodox(  // layer 0 : default
+        // left hand
+        KC_TRNS,    KC_1,       KC_2,   KC_3,   KC_4,   KC_5,   KC_TRNS,
+        KC_TRNS,    FR_Q,       FR_W,   KC_F,   KC_P,   KC_B,   KC_TRNS,
+        KC_TRNS,    FR_A,       KC_R,   KC_S,   KC_T,   KC_G,
+        KC_TRNS,    FR_Z,       KC_X,   KC_C,   KC_D,   KC_V,   KC_TRNS,
+        KC_TRNS,    KC_TRNS,    KC_TRNS,KC_TRNS,KC_TRNS,
+                                           KC_TRNS, KC_TRNS,
+                                                    KC_TRNS,
+                                 KC_SPACE, KC_TRNS, KC_TRNS,
+        // right hand
+        KC_TRNS,    KC_6,   KC_7,   KC_8,   KC_9,    KC_0,      KC_TRNS,
+        KC_TRNS,    KC_J,   KC_L,   KC_U,   KC_Y,    FR_SCLN,   KC_TRNS,
+                    FR_M,   KC_N,   KC_E,   KC_I,    KC_O,      KC_TRNS,
+        KC_TRNS,    KC_K,   KC_H,   FR_COMM,FR_DOT,  FR_COLN,   KC_TRNS,
+                            KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,   KC_TRNS,
+       KC_TRNS, KC_TRNS,
+       KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS
+                  ),
+
+
+/* Keymap 5: accented characters
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
@@ -395,20 +440,28 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 
     // to set our leds on our off we rely on bitwise and mask operations
-    uint32_t symbol_mask = 0x00000003; // last 4 bits : 0011 -> base layer + layer 1
-    uint32_t media_mask  = 0x00000005; // last 4 bits : 0101 -> base layer + layer 2
-    uint32_t game_mask   = 0x00000009; // last 4 bits : 1001 -> base layer + layer 3
+    uint32_t symb_mask = 0x00000003; // last 8 bits : 0000 0011 -> base layer + layer 1
+    uint32_t mdia_mask = 0x00000005; // last 8 bits : 0000 0101 -> base layer + layer 2
+    uint32_t game_mask = 0x00000009; // last 8 bits : 0000 1001 -> base layer + layer 3
+    uint32_t clmk_mask = 0x00000011; // last 8 bits : 0001 0001 -> base layer + layer 4
 
-    if (state & symbol_mask) {
+    if (state & symb_mask) {
         ergodox_right_led_3_on(); // blue led low for symbol layer
     }
 
-    if (state & media_mask) {
+    if (state & mdia_mask) {
         ergodox_right_led_2_on(); // green led low for media layer
     }
 
     if (state & game_mask) {
         ergodox_right_led_1_on(); // red led low for game layer
+    }
+
+    if (state & clmk_mask) {
+        ergodox_right_led_1_set(30); // red led high for accent layer
+        ergodox_right_led_3_set(10); // green led high for accent layer
+        ergodox_right_led_1_on();
+        ergodox_right_led_3_on();
     }
 
     return state;

@@ -9,6 +9,19 @@
 #define SYMB 1 // symbols
 #define MDIA 2 // media keys
 #define GAME 3 // default layer without special binding on space and shifts
+#define ACC  4 // accented characters
+
+// accented characters
+#define M_ACIRC 2 // â
+#define M_ECIRC 3 // ê
+#define M_ICIRC 4 // î
+#define M_OCIRC 5 // ô
+#define M_UCIRC 6 // û
+#define M_AUMLT 7 // ä
+#define M_EUMLT 8 // ë
+#define M_IUMLT 9 // ï
+#define M_OUMLT 10 // ö
+#define M_UUMLT 11 // ü
 
 #define ALT_TAB LALT(KC_TAB)
 
@@ -27,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Tab    |   Q  |   W  |   E  |   R  |   T  |  Alt |           | Media|   Y  |   U  |   I  |   O  |   P  |        |
  * |--------+------+------+------+------+------|  tab |           |      |------+------+------+------+------+--------|
  * | BkSp   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |    /   |
- * |--------+------+------+------+------+------| Hyper|           | Meh  |------+------+------+------+------+--------|
+ * |--------+------+------+------+------+------| Hyper|           | Acc  |------+------+------+------+------+--------|
  * |shift/CLK|  Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |//Ctrl| RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   | Ctrl | Alt  | LGUI | Left | Right|                                       |  Up  | Down |      | LALT | Ctrl |
@@ -52,10 +65,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                               KC_HOME,
                                               F(0), KC_BSPC,  KC_END,
         // right hand
-        KC_TRNS,      KC_6,   KC_7,   KC_8,     KC_9,     KC_0,     KC_TRNS,
-        TG(MDIA),     KC_Y,   KC_U,   KC_I,     KC_O,     KC_P,     KC_QUOT,
+        KC_TRNS,    KC_6,   KC_7,   KC_8,     KC_9,     KC_0,     KC_TRNS,
+        TG(MDIA),   KC_Y,   KC_U,   KC_I,     KC_O,     KC_P,     KC_QUOT,
                       KC_H,   KC_J,   KC_K,     KC_L,     KC_SCLN,  FR_SLSH,
-        MEH_T(KC_NO), KC_N,   KC_M,   KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
+        OSL(ACC),   KC_N,   KC_M,   KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
                               KC_UP,  KC_DOWN,  KC_TRNS,  KC_RALT,  KC_RCTRL,
         KC_LALT, CTL_T(KC_ESC),
         KC_PGUP,
@@ -190,6 +203,136 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS, KC_TRNS
 ),
 
+/* Keymap 4: accented characters
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |        |      |  à   |  â   |  ä   |      |      |           |      |      |  î   |  ï   |      |      |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |  é   |  è   |  ê   |  ë   |      |------|           |------|      |  ô   |  ö   |      |      |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |  ù   |  û   |  ü   |      |      |           |      |      |      |      |      |      |        |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                                       |      |      |      |      |      |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |      |      |       |      |      |
+ *                                 ,------|------|------|       |------+------+------.
+ *                                 |      |      |      |       |      |      |      |
+ *                                 |      |      |------|       |------|      |      |
+ *                                 |      |      |      |       |      |      |      |
+ *                                 `--------------------'       `--------------------'
+ */
+// ACCENTED CHARACTERS
+[ACC] = LAYOUT_ergodox(
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,    KC_TRNS, KC_TRNS,
+
+       KC_TRNS, KC_TRNS, FR_AGRV, M(M_ACIRC),  M(M_AUMLT), KC_TRNS, KC_TRNS,
+       KC_TRNS, FR_EACU, FR_EGRV, M(M_ECIRC),  M(M_EUMLT), KC_TRNS,
+       KC_TRNS, KC_TRNS, FR_UGRV, M(M_UCIRC),  M(M_UUMLT), KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,
+                                               KC_TRNS, KC_TRNS,
+                                                    KC_TRNS,
+                                  KC_TRNS, KC_TRNS, KC_TRNS,
+       // right hand
+       KC_TRNS,  KC_TRNS, KC_TRNS,    KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS,  KC_TRNS, M(M_ICIRC), M(M_IUMLT), KC_TRNS, KC_TRNS, KC_TRNS,
+                 KC_TRNS, M(M_OCIRC), M(M_OUMLT), KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS,  KC_TRNS, KC_TRNS,    KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS,
+                          KC_TRNS,    KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS,
+       KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS
+),
+};
+
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
+{
+  switch(id) {
+  case M_ACIRC:
+    if (record->event.pressed) {
+      return MACRO(T(LBRC), // FR_CIRC
+                   T(Q), // FR_A
+                   END);
+    }
+    break;
+  case M_ECIRC:
+    if (record->event.pressed) {
+      return MACRO(T(LBRC), // FR_CIRC
+                   T(E),
+                   END);
+    }
+    break;
+  case M_UCIRC:
+    if (record->event.pressed) {
+      return MACRO(T(LBRC), // FR_CIRC
+                   T(U),
+                   END);
+    }
+    break;
+  case M_ICIRC:
+    if (record->event.pressed) {
+      return MACRO(T(LBRC), // FR_CIRC
+                   T(I),
+                   END);
+    }
+    break;
+  case M_OCIRC:
+    if (record->event.pressed) {
+      return MACRO(T(LBRC), // FR_CIRC
+                   T(O),
+                   END);
+    }
+    break;
+  case M_AUMLT:
+    if (record->event.pressed) {
+      return MACRO(D(LSFT),
+                   T(LBRC),
+                   U(LSFT),
+                   T(Q),
+                   END);
+    }
+    break;
+  case M_EUMLT:
+    if (record->event.pressed) {
+      return MACRO(D(LSFT),
+                   T(LBRC),
+                   U(LSFT),
+                   T(E),
+                   END);
+    }
+    break;
+  case M_UUMLT:
+    if (record->event.pressed) {
+      return MACRO(D(LSFT),
+                   T(LBRC),
+                   U(LSFT),
+                   T(U),
+                   END);
+    }
+    break;
+  case M_IUMLT:
+    if (record->event.pressed) {
+      return MACRO(D(LSFT),
+                   T(LBRC),
+                   U(LSFT),
+                   T(I),
+                   END);
+    }
+    break;
+  case M_OUMLT:
+    if (record->event.pressed) {
+      return MACRO(D(LSFT),
+                   T(LBRC),
+                   U(LSFT),
+                   T(O),
+                   END);
+    }
+    break;
+
+  }
+  return MACRO_NONE;
 };
 
 //Tap Dance Definitions

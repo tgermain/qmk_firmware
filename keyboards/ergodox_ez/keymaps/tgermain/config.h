@@ -9,4 +9,7 @@
 #undef LEADER_TIMEOUT
 #define LEADER_TIMEOUT 1000
 
+#undef TAPPING_TERM
+#define TAPPING_TERM 200
+
 #endif

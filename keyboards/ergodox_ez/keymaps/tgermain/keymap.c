@@ -253,11 +253,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |      |  à   |  â   |  ä   |      |      |           |      |      |  î   |  ï   |      |      |        |
+ * |        |      |  à   |  ä   |  â   |      |      |           |      |      |  î   |  ï   |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |  é   |  è   |  ê   |  ë   |      |------|           |------|      |  ô   |  ö   |      |      |        |
+ * |        |  é   |  è   |  ë   |  ê   |      |------|           |------|      |  ô   |  ö   |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |  ù   |  û   |  ü   |      |      |           |      |      |      |      |      |      |        |
+ * |        |      |  ù   |  ü   |  û   |      |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
@@ -273,9 +273,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [ACC] = LAYOUT_ergodox(
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,    KC_TRNS, KC_TRNS,
 
-       KC_TRNS, KC_TRNS, FR_AGRV, M(M_ACIRC),  M(M_AUMLT), KC_TRNS, KC_TRNS,
-       KC_TRNS, FR_EACU, FR_EGRV, M(M_ECIRC),  M(M_EUMLT), KC_TRNS,
-       KC_TRNS, KC_TRNS, FR_UGRV, M(M_UCIRC),  M(M_UUMLT), KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS, FR_AGRV, M(M_AUMLT), M(M_ACIRC), KC_TRNS, KC_TRNS,
+       KC_TRNS, FR_EACU, FR_EGRV, M(M_EUMLT), M(M_ECIRC), KC_TRNS,
+       KC_TRNS, KC_TRNS, FR_UGRV, M(M_UUMLT), M(M_UCIRC), KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,
                                                KC_TRNS, KC_TRNS,
                                                     KC_TRNS,

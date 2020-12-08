@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Tab    |   Q  |   W  |   E  |   R  |   T  |  Alt |           | Media|   Y  |   U  |   I  |   O  |   P  |        |
  * |--------+------+------+------+------+------|  tab |           |      |------+------+------+------+------+--------|
  * | BkSp   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |    /   |
- * |--------+------+------+------+------+------| Hyper|           | Acc  |------+------+------+------+------+--------|
+ * |--------+------+------+------+------+------|  Meh |           | Acc  |------+------+------+------+------+--------|
  * |shift/CLK|  Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |//Ctrl| RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   | Ctrl | Alt  | LGUI | Left | Right|                                       |  Up  | Down |      | LALT | Ctrl |
@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,             KC_1,       KC_2,   KC_3,   KC_4,   KC_5,   TG(GAME),
         KC_TAB,             KC_Q,       KC_W,   KC_E,   KC_R,   KC_T,   ALT_TAB,
         KC_BSPC,            KC_A,       KC_S,   KC_D,   KC_F,   KC_G,
-        TD(TD_LSFT_CLCK),   KC_Z,       KC_X,   KC_C,   KC_V,   KC_B,   KC_HYPR,
+        TD(TD_LSFT_CLCK),   KC_Z,       KC_X,   KC_C,   KC_V,   KC_B,   KC_MEH,
         KC_LCTRL,           KC_LALT,    KC_LGUI,KC_LEFT,KC_RGHT,
                                               ALT_TAB,  KC_MPLY,
                                                               KC_HOME,

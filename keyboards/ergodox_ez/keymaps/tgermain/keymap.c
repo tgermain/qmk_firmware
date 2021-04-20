@@ -40,11 +40,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | Tab    |   Q  |   W  |   E  |   R  |   T  |  Alt |           | Media|   Y  |   U  |   I  |   O  |   P  |        |
  * |--------+------+------+------+------+------|  tab |           |      |------+------+------+------+------+--------|
- * | BkSp   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |    /   |
+ * | BkSp   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |        |
  * |--------+------+------+------+------+------|  Meh |           | Acc  |------+------+------+------+------+--------|
  * |shift/CLK|  Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |//Ctrl| RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | Ctrl | Alt  | LGUI | Left | Right|                                       |  Up  | Down |      | LALT | Ctrl |
+ *   | Ctrl | Alt  | LGUI | Left | Right|                                       |  Up  | Down |      | RALT | Ctrl |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |altTab| LGui |       | Prev | Next |
@@ -67,8 +67,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                               F(0), KC_BSPC,  KC_END,
         // right hand
         TG(CLMK),    KC_6,   KC_7,   KC_8,     KC_9,     KC_0,     KC_TRNS,
-        TG(MDIA),   KC_Y,   KC_U,   KC_I,     KC_O,     KC_P,     KC_QUOT,
-                    KC_H,   KC_J,   KC_K,     KC_L,     KC_SCLN,  FR_SLSH,
+        TG(MDIA),   KC_Y,   KC_U,   KC_I,     KC_O,     KC_P,     KC_TRNS,
+                    KC_H,   KC_J,   KC_K,     KC_L,     KC_SCLN,  KC_TRNS,
         OSL(ACC),   KC_N,   KC_M,   KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
                             KC_UP,  KC_DOWN,  KC_TRNS,  KC_RALT,  KC_RCTRL,
         KC_MPRV,  KC_MNXT,

@@ -28,11 +28,11 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE]=LAYOUT_6x6(
-    F(1)    ,KC_MPRV      ,KC_MPLY  ,KC_MNXT,KC_F4    ,KC_F5           ,KC_F6  ,KC_F7   ,KC_F8    ,KC_F9   ,KC_F10  ,KC_F11 ,
-    KC_TAB  ,KC_1         ,KC_2     ,KC_3   ,KC_4     ,KC_5            ,KC_6   ,KC_7    ,KC_8     ,KC_9    ,KC_0    ,KC_F12 ,
-    _______ ,KC_Q         ,KC_W     ,KC_E   ,KC_R     ,KC_T            ,KC_Y   ,KC_U    ,KC_I     ,KC_O    ,KC_P    ,KC_MINS,
-    KC_LSFT ,KC_A         ,KC_S     ,KC_D   ,KC_F     ,KC_G            ,KC_H   ,KC_J    ,KC_K     ,KC_L    ,KC_SCLN ,KC_QUOT,
-    KC_LCTL ,LALT_T(KC_Z) ,KC_X     ,KC_C   ,KC_V     ,MEH_T(KC_B)     ,KC_N   ,KC_M    ,KC_COMM  ,KC_DOT  ,KC_SLSH ,KC_BSLASH,
+    F(1),    KC_MPRV,      KC_MPLY,  KC_MNXT,KC_F4,    KC_F5,           KC_F6,  KC_F7,   KC_F8,    KC_F9,   KC_F10,  KC_F11, 
+    KC_TAB,  US_1         ,US_2     ,US_3   ,US_4     ,US_5            ,US_6   ,US_7    ,US_8     ,US_9    ,US_0    ,KC_F12 ,
+    _______ ,US_Q         ,US_W     ,US_F   ,US_P     ,US_B            ,US_J   ,US_L    ,US_U     ,US_Y    ,US_SCLN ,KC_MINS,
+    KC_LSFT ,US_A         ,US_R     ,US_S   ,US_T     ,US_G            ,US_M   ,US_N    ,US_E     ,US_I    ,US_O    ,US_DGRV,
+    KC_LCTL ,LALT_T(KC_X) ,US_C     ,US_D   ,US_V     ,MEH_T(US_Z)     ,US_K   ,US_H    ,US_COMM  ,US_DOT  ,US_SLSH ,US_ACUT,
                           KC_LEFT   ,KC_RIGHT                                           ,KC_UP    ,KC_DOWN,
                                   KC_SPC  ,KC_BSPC            ,ALT_TAB, KC_ENT,
                                     KC_LCTRL,KC_LSFT        ,KC_END,  KC_DEL,

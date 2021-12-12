@@ -33,9 +33,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LSFT, US_A,    US_R,     US_S,     US_T,     US_G,               US_M,   US_N,   US_E,     US_I,    US_O,    US_DGRV,
     KC_LCTL, KC_X,    US_C,     US_D,     US_V,     MEH_T(US_Z),        US_K,   US_H,   US_COMM,  US_DOT,  US_SLSH, US_ACUT,
                             KC_LEFT,  KC_RIGHT,                                               KC_UP,    KC_DOWN,
-                                                F(0),  KC_BSPC,               ALT_TAB, KC_ENT,
-                                                  KC_LCTRL,KC_LSFT,           KC_END,  KC_DEL,
-                                                  KC_END,  LALT_T(KC_HOME),           KC_LGUI, KC_LALT
+                                          F(0),  KC_BSPC,                   ALT_TAB, KC_ENT,
+                                              KC_LCTRL,KC_LSFT,         KC_END,  KC_DEL,
+                                              KC_END, LALT_T(KC_HOME),  KC_LGUI, KC_LALT
   ), 
   [SYMB]=LAYOUT_6x6(
     _______, KC_F1,   KC_F2,    KC_F3,    _______, _______,         _______,  _______,_______,  _______, _______, _______,

@@ -8,17 +8,115 @@
 #define RESET_ACCESS 11
 #define RST_LR 12
 
-// accented characters
-#define M_ACIRC 2 // â
-#define M_ECIRC 3 // ê
-#define M_ICIRC 4 // î
-#define M_OCIRC 5 // ô
-#define M_UCIRC 6 // û
-#define M_AUMLT 7 // ä
-#define M_EUMLT 8 // ë
-#define M_IUMLT 9 // ï
-#define M_OUMLT 10 // ö
-#define M_UUMLT 11 // ü
+enum custom_keycodes {
+  M_ACIRC = SAFE_RANGE,
+  M_ECIRC,
+  M_ICIRC,
+  M_OCIRC,
+  M_UCIRC,
+  M_AUMLT,
+  M_EUMLT,
+  M_IUMLT,
+  M_OUMLT,
+  M_UUMLT,
+};
+
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case M_ACIRC:
+      if (record->event.pressed) {
+        register_code(KC_LBRC);
+        register_code(KC_Q);
+      } else {
+        unregister_code(KC_Q);
+      }
+      break;
+    case M_ECIRC:
+      if (record->event.pressed) {
+        register_code(KC_LBRC);
+        register_code(KC_E);
+      } else {
+        unregister_code(KC_E);
+      }
+      break;
+    case M_UCIRC:
+      if (record->event.pressed) {
+        register_code(KC_LBRC);
+        register_code(KC_U);
+      } else {
+        unregister_code(KC_U);
+      }
+      break;
+    case M_ICIRC:
+      if (record->event.pressed) {
+        register_code(KC_LBRC);
+        register_code(KC_I);
+      } else {
+        unregister_code(KC_I);
+      }
+      break;
+    case M_OCIRC:
+      if (record->event.pressed) {
+        register_code(KC_LBRC);
+        register_code(KC_O);
+      } else {
+        unregister_code(KC_O);
+      }
+      break;
+    case M_AUMLT:
+      if (record->event.pressed) {
+        register_code(KC_RSFT);
+        register_code(KC_LBRC);
+        unregister_code(KC_RSFT);
+        register_code(KC_Q);
+      } else {
+        unregister_code(KC_Q);
+      }
+      break;
+    case M_EUMLT:
+      if (record->event.pressed) {
+        register_code(KC_RSFT);
+        register_code(KC_LBRC);
+        unregister_code(KC_RSFT);
+        register_code(KC_E);
+      } else {
+        unregister_code(KC_E);
+      }
+      break;
+    case M_UUMLT:
+      if (record->event.pressed) {
+        register_code(KC_RSFT);
+        register_code(KC_LBRC);
+        unregister_code(KC_RSFT);
+        register_code(KC_U);
+      } else {
+        unregister_code(KC_U);
+      }
+      break;
+    case M_IUMLT:
+      if (record->event.pressed) {
+        register_code(KC_RSFT);
+        register_code(KC_LBRC);
+        unregister_code(KC_RSFT);
+        register_code(KC_I);
+      } else {
+        unregister_code(KC_I);
+      }
+      break;
+    case M_OUMLT:
+      if (record->event.pressed) {
+        register_code(KC_RSFT);
+        register_code(KC_LBRC);
+        unregister_code(KC_RSFT);
+        register_code(KC_O);
+      } else {
+        unregister_code(KC_O);
+      }
+      break;
+  }
+  return true;
+}
 
 #define ALT_TAB LALT(KC_TAB)
 #define SP_SYMB LT(SYMB, KC_SPC)
@@ -44,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE]=LAYOUT_6x6(
     ESC_RSTA,KC_MPRV, KC_MPLY,  KC_MNXT,  KC_F4,    KC_F5,              KC_F6,  KC_F7,  KC_F8,    KC_F9,   KC_F10,  KC_F11,
     KC_TAB,  KC_1,    KC_2,     KC_3,     KC_4,     KC_5,               KC_6,   KC_7,   KC_8,     KC_9,    KC_0,    KC_F12,
-    _______, FR_Q,    FR_W,     FR_F,     FR_P,     FR_B,               FR_J,   FR_L,   FR_U,     FR_Y,    _______, _______,
+    _______, FR_Q,    FR_W,     FR_F,     FR_P,     FR_B,               FR_J,   FR_L,   FR_U,     FR_Y,    OSL(ACCENT), _______,
     KC_LSFT, FR_A,    FR_R,     FR_S,     FR_T,     FR_G,               FR_M,   FR_N,   FR_E,     FR_I,    KC_O,    _______,
     KC_LCTL, FR_X,    FR_C,     FR_D,     FR_V,     MEH_T(FR_Z),        FR_K,   FR_H,   FR_COMM,  FR_SCLN, FR_COLN, FR_EXLM,
                             KC_LEFT,  KC_RIGHT,                                               KC_UP,    KC_DOWN,
@@ -107,11 +205,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *               `-------------'                                       `-------------'
  */
   [ACCENT]=LAYOUT_6x6(
-    _______, _______, _______, _______,     _______,    _______,        _______, _______,     _______,    _______, _______, _______,
-    _______, _______, _______, _______,     _______,    _______,        _______, _______,     _______,    _______, _______, _______,
-    _______, KC_TRNS, FR_AGRV, M(M_AUMLT),  M(M_ACIRC), _______,        _______, M(M_ICIRC),  M(M_IUMLT), _______, _______, _______,
-    _______, FR_EACU, FR_EGRV, M(M_EUMLT),  M(M_ECIRC), _______,        _______, M(M_OCIRC),  M(M_OUMLT), _______, _______, _______,
-    _______, KC_TRNS, FR_UGRV, M(M_UUMLT),  M(M_UCIRC), _______,        _______, _______,     _______,    _______, _______, _______,
+    _______, _______, _______, _______,  _______,    _______,        _______, _______,  _______, _______, _______, _______,
+    _______, _______, _______, _______,  _______,    _______,        _______, _______,  _______, _______, _______, _______,
+    _______, KC_TRNS, FR_AGRV, M_AUMLT,  M_ACIRC, _______,           _______, M_ICIRC,  M_IUMLT, _______, _______, _______,
+    _______, FR_EACU, FR_EGRV, M_EUMLT,  M_ECIRC, _______,           _______, M_OCIRC,  M_OUMLT, _______, _______, _______,
+    _______, KC_TRNS, FR_UGRV, M_UUMLT,  M_UCIRC, _______,           _______, _______,  _______, _______, _______, _______,
                       _______, _______,                                             _______, _______,
                                   _______, _______,                         _______, _______,
                                     _______, _______,                   _______, _______,
@@ -142,90 +240,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  switch(id) {
-  case M_ACIRC:
-    if (record->event.pressed) {
-      return MACRO(T(LBRC), // FR_CIRC
-                   T(Q), // FR_A
-                   END);
-    }
-    break;
-  case M_ECIRC:
-    if (record->event.pressed) {
-      return MACRO(T(LBRC), // FR_CIRC
-                   T(E),
-                   END);
-    }
-    break;
-  case M_UCIRC:
-    if (record->event.pressed) {
-      return MACRO(T(LBRC), // FR_CIRC
-                   T(U),
-                   END);
-    }
-    break;
-  case M_ICIRC:
-    if (record->event.pressed) {
-      return MACRO(T(LBRC), // FR_CIRC
-                   T(I),
-                   END);
-    }
-    break;
-  case M_OCIRC:
-    if (record->event.pressed) {
-      return MACRO(T(LBRC), // FR_CIRC
-                   T(O),
-                   END);
-    }
-    break;
-  case M_AUMLT:
-    if (record->event.pressed) {
-      return MACRO(D(LSFT),
-                   T(LBRC),
-                   U(LSFT),
-                   T(Q),
-                   END);
-    }
-    break;
-  case M_EUMLT:
-    if (record->event.pressed) {
-      return MACRO(D(LSFT),
-                   T(LBRC),
-                   U(LSFT),
-                   T(E),
-                   END);
-    }
-    break;
-  case M_UUMLT:
-    if (record->event.pressed) {
-      return MACRO(D(LSFT),
-                   T(LBRC),
-                   U(LSFT),
-                   T(U),
-                   END);
-    }
-    break;
-  case M_IUMLT:
-    if (record->event.pressed) {
-      return MACRO(D(LSFT),
-                   T(LBRC),
-                   U(LSFT),
-                   T(I),
-                   END);
-    }
-    break;
-  case M_OUMLT:
-    if (record->event.pressed) {
-      return MACRO(D(LSFT),
-                   T(LBRC),
-                   U(LSFT),
-                   T(O),
-                   END);
-    }
-    break;
-
-  }
-  return MACRO_NONE;
-};

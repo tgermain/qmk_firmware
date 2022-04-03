@@ -26,7 +26,7 @@
 
 //Tap Dance Declarations
 enum {
-  TD_LSFT_CLCK = 0
+  TD_LSFT_CLCK,
 };
 
 
@@ -338,8 +338,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
   //Tap once for shift, twice for caps lock
-  [TD_LSFT_CLCK]  =  ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPSLOCK)
-// Other declarations would go here, separated by commas, if you have them
+  [TD_LSFT_CLCK]  =  ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPSLOCK),
 };
 
 

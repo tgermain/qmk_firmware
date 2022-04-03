@@ -1,26 +1,18 @@
 #include QMK_KEYBOARD_H
-#include "debug.h"
 #include "keymap_french.h"
 
-#define LED_BRIGHTNESS_VLO 5
-
-#define BASE 0 // default layer
-#define SYMB 1 // symbols
-#define MDIA 2 // media keys
-#define GAME 3 // default layer without special binding on space and shifts
-#define ACC  5 // accented characters
-
-// accented characters
-#define M_ACIRC 2 // â
-#define M_ECIRC 3 // ê
-#define M_ICIRC 4 // î
-#define M_OCIRC 5 // ô
-#define M_UCIRC 6 // û
-#define M_AUMLT 7 // ä
-#define M_EUMLT 8 // ë
-#define M_IUMLT 9 // ï
-#define M_OUMLT 10 // ö
-#define M_UUMLT 11 // ü
+enum custom_keycodes {
+  M_ACIRC = SAFE_RANGE,
+  M_ECIRC,
+  M_ICIRC,
+  M_OCIRC,
+  M_UCIRC,
+  M_AUMLT,
+  M_EUMLT,
+  M_IUMLT,
+  M_OUMLT,
+  M_UUMLT,
+};
 
 #define ALT_TAB LALT(KC_TAB)
 
@@ -28,6 +20,148 @@
 enum {
   TD_LSFT_CLCK,
 };
+
+//Tap Dance Definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+  //Tap once for shift, twice for caps lock
+  [TD_LSFT_CLCK]  =  ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPSLOCK),
+};
+
+//KC_CAPSLOCK
+static bool shift_disabled = false;
+static bool delete_pressed = false;
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case M_ACIRC:
+      if (record->event.pressed) {
+        register_code(KC_LBRC);
+        register_code(KC_Q);
+      } else {
+        unregister_code(KC_Q);
+      }
+      break;
+    case M_ECIRC:
+      if (record->event.pressed) {
+        register_code(KC_LBRC);
+        register_code(KC_E);
+      } else {
+        unregister_code(KC_E);
+      }
+      break;
+    case M_UCIRC:
+      if (record->event.pressed) {
+        register_code(KC_LBRC);
+        register_code(KC_U);
+      } else {
+        unregister_code(KC_U);
+      }
+      break;
+    case M_ICIRC:
+      if (record->event.pressed) {
+        register_code(KC_LBRC);
+        register_code(KC_I);
+      } else {
+        unregister_code(KC_I);
+      }
+      break;
+    case M_OCIRC:
+      if (record->event.pressed) {
+        register_code(KC_LBRC);
+        register_code(KC_O);
+      } else {
+        unregister_code(KC_O);
+      }
+      break;
+    case M_AUMLT:
+      if (record->event.pressed) {
+        register_code(KC_RSFT);
+        register_code(KC_LBRC);
+        unregister_code(KC_RSFT);
+        register_code(KC_Q);
+      } else {
+        unregister_code(KC_Q);
+      }
+      break;
+    case M_EUMLT:
+      if (record->event.pressed) {
+        register_code(KC_RSFT);
+        register_code(KC_LBRC);
+        unregister_code(KC_RSFT);
+        register_code(KC_E);
+      } else {
+        unregister_code(KC_E);
+      }
+      break;
+    case M_UUMLT:
+      if (record->event.pressed) {
+        register_code(KC_RSFT);
+        register_code(KC_LBRC);
+        unregister_code(KC_RSFT);
+        register_code(KC_U);
+      } else {
+        unregister_code(KC_U);
+      }
+      break;
+    case M_IUMLT:
+      if (record->event.pressed) {
+        register_code(KC_RSFT);
+        register_code(KC_LBRC);
+        unregister_code(KC_RSFT);
+        register_code(KC_I);
+      } else {
+        unregister_code(KC_I);
+      }
+      break;
+    case M_OUMLT:
+      if (record->event.pressed) {
+        register_code(KC_RSFT);
+        register_code(KC_LBRC);
+        unregister_code(KC_RSFT);
+        register_code(KC_O);
+      } else {
+        unregister_code(KC_O);
+      }
+      break;
+    // shift + backspace -> delete
+    case KC_BSPC:
+      if (record->event.pressed) {
+        if(keyboard_report->mods & MOD_BIT(KC_LSFT)) {
+            delete_pressed = true;
+            shift_disabled = true;
+            unregister_code(KC_LSFT);
+            register_code(KC_DEL);
+            return false;
+        }
+      } else if(delete_pressed) {
+        delete_pressed = false;
+        unregister_code(KC_DEL);
+
+        if(shift_disabled) {
+          shift_disabled = false;
+          register_code(KC_LSFT);
+        }
+        return false;
+      }
+  }
+  if(keycode == KC_LSFT && !record->event.pressed && delete_pressed) {
+    delete_pressed = false;
+    shift_disabled = false;
+    unregister_code(KC_DEL);
+    register_code(KC_BSPC);
+    return false;
+  }
+  return true;
+}
+
+#define LED_BRIGHTNESS_VLO 5
+
+#define BASE 0 // default layer
+#define SYMB 1 // symbols
+#define MDIA 2 // media keys
+#define GAME 3 // default layer without special binding on space and shifts
+#define ACC  4 // accented characters
+
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -74,7 +208,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_PGDN, KC_RSFT, KC_ENT
     ),
 
-    /* Keymap 1: Symbol Layer
+/* Keymap 1: Symbol Layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
@@ -228,156 +362,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [ACC] = LAYOUT_ergodox(
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,    KC_TRNS, KC_TRNS,
 
-       KC_TRNS, KC_TRNS, FR_AGRV, M(M_AUMLT), M(M_ACIRC), KC_TRNS, KC_TRNS,
-       KC_TRNS, FR_EACU, FR_EGRV, M(M_EUMLT), M(M_ECIRC), KC_TRNS,
-       KC_TRNS, KC_TRNS, FR_UGRV, M(M_UUMLT), M(M_UCIRC), KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS, FR_AGRV, M_AUMLT, M_ACIRC, KC_TRNS, KC_TRNS,
+       KC_TRNS, FR_EACU, FR_EGRV, M_EUMLT, M_ECIRC, KC_TRNS,
+       KC_TRNS, KC_TRNS, FR_UGRV, M_UUMLT, M_UCIRC, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,
                                                KC_TRNS, KC_TRNS,
                                                     KC_TRNS,
                                   KC_TRNS, KC_TRNS, KC_TRNS,
        // right hand
-       KC_TRNS,  KC_TRNS, KC_TRNS,    KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS,  KC_TRNS, M(M_ICIRC), M(M_IUMLT), KC_TRNS, KC_TRNS, KC_TRNS,
-                 KC_TRNS, M(M_OCIRC), M(M_OUMLT), KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS,  KC_TRNS, KC_TRNS,    KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS,
-                          KC_TRNS,    KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS,  KC_TRNS, M_ICIRC,  M_IUMLT,  KC_TRNS, KC_TRNS, KC_TRNS,
+                 KC_TRNS, M_OCIRC,  M_OUMLT,  KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,
+                          KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS,
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
 ),
 };
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  switch(id) {
-  case M_ACIRC:
-    if (record->event.pressed) {
-      return MACRO(T(LBRC), // FR_CIRC
-                   T(Q), // FR_A
-                   END);
-    }
-    break;
-  case M_ECIRC:
-    if (record->event.pressed) {
-      return MACRO(T(LBRC), // FR_CIRC
-                   T(E),
-                   END);
-    }
-    break;
-  case M_UCIRC:
-    if (record->event.pressed) {
-      return MACRO(T(LBRC), // FR_CIRC
-                   T(U),
-                   END);
-    }
-    break;
-  case M_ICIRC:
-    if (record->event.pressed) {
-      return MACRO(T(LBRC), // FR_CIRC
-                   T(I),
-                   END);
-    }
-    break;
-  case M_OCIRC:
-    if (record->event.pressed) {
-      return MACRO(T(LBRC), // FR_CIRC
-                   T(O),
-                   END);
-    }
-    break;
-  case M_AUMLT:
-    if (record->event.pressed) {
-      return MACRO(D(LSFT),
-                   T(LBRC),
-                   U(LSFT),
-                   T(Q),
-                   END);
-    }
-    break;
-  case M_EUMLT:
-    if (record->event.pressed) {
-      return MACRO(D(LSFT),
-                   T(LBRC),
-                   U(LSFT),
-                   T(E),
-                   END);
-    }
-    break;
-  case M_UUMLT:
-    if (record->event.pressed) {
-      return MACRO(D(LSFT),
-                   T(LBRC),
-                   U(LSFT),
-                   T(U),
-                   END);
-    }
-    break;
-  case M_IUMLT:
-    if (record->event.pressed) {
-      return MACRO(D(LSFT),
-                   T(LBRC),
-                   U(LSFT),
-                   T(I),
-                   END);
-    }
-    break;
-  case M_OUMLT:
-    if (record->event.pressed) {
-      return MACRO(D(LSFT),
-                   T(LBRC),
-                   U(LSFT),
-                   T(O),
-                   END);
-    }
-    break;
-
-  }
-  return MACRO_NONE;
-};
-
-//Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-  //Tap once for shift, twice for caps lock
-  [TD_LSFT_CLCK]  =  ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPSLOCK),
-};
-
-
-
-//KC_CAPSLOCK
-static bool shift_disabled = false;
-static bool delete_pressed = false;
-/**
- * Change shift+backspace into delete and do not register the shift modifier.
- */
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-  if(keycode == KC_BSPC) {
-    if (record->event.pressed) {
-      if(keyboard_report->mods & MOD_BIT(KC_LSFT)) {
-        delete_pressed = true;
-        shift_disabled = true;
-        unregister_code(KC_LSFT);
-        register_code(KC_DEL);
-        return false;
-      }
-    } else if(delete_pressed) {
-      delete_pressed = false;
-      unregister_code(KC_DEL);
-
-      if(shift_disabled) {
-        shift_disabled = false;
-        register_code(KC_LSFT);
-      }
-      return false;
-    }
-  } else if(keycode == KC_LSFT && !record->event.pressed && delete_pressed) {
-    delete_pressed = false;
-    shift_disabled = false;
-    unregister_code(KC_DEL);
-    register_code(KC_BSPC);
-    return false;
-  }
-  return true;
-}
 
 // Runs whenever there is a layer state change.
 // state is a 32 bit where each bit on is a layer activated
@@ -394,7 +396,7 @@ uint32_t layer_state_set_user(uint32_t state) {
     uint32_t symb_mask = 0x00000003; // last 8 bits : 0000 0011 -> base layer + layer 1
     uint32_t mdia_mask = 0x00000005; // last 8 bits : 0000 0101 -> base layer + layer 2
     uint32_t game_mask = 0x00000009; // last 8 bits : 0000 1001 -> base layer + layer 3
-    uint32_t clmk_mask = 0x00000011; // last 8 bits : 0001 0001 -> base layer + layer 4
+    uint32_t accent_mask = 0x00000011; // last 8 bits : 0001 0001 -> base layer + layer 4
 
     if (state & symb_mask) {
         ergodox_right_led_3_on(); // blue led low for symbol layer
@@ -408,7 +410,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         ergodox_right_led_1_on(); // red led low for game layer
     }
 
-    if (state & clmk_mask) {
+    if (state & accent_mask) {
         ergodox_right_led_1_set(30); // red led high for accent layer
         ergodox_right_led_3_set(10); // green led high for accent layer
         ergodox_right_led_1_on();

@@ -9,7 +9,6 @@
 #define SYMB 1 // symbols
 #define MDIA 2 // media keys
 #define GAME 3 // default layer without special binding on space and shifts
-#define CLMK 4 // colemak DH characters
 #define ACC  5 // accented characters
 
 // accented characters
@@ -36,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * | ESC    |   1  |   2  |   3  |   4  |   5  |  L3  |           | CLMK |   6  |   7  |   8  |   9  |   0  |        |
+ * | ESC    |   1  |   2  |   3  |   4  |   5  |  L3  |           |      |   6  |   7  |   8  |   9  |   0  |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | Tab    |   Q  |   W  |   E  |   R  |   T  |  Alt |           | Media|   Y  |   U  |   I  |   O  |   P  |        |
  * |--------+------+------+------+------+------|  tab |           |      |------+------+------+------+------+--------|
@@ -66,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                               KC_HOME,
                                               F(0), KC_BSPC,  KC_END,
         // right hand
-        TG(CLMK),    KC_6,   KC_7,   KC_8,     KC_9,     KC_0,     KC_TRNS,
+        KC_TRNS,    KC_6,   KC_7,   KC_8,     KC_9,     KC_0,     KC_TRNS,
         TG(MDIA),   KC_Y,   KC_U,   KC_I,     KC_O,     KC_P,     KC_TRNS,
                     KC_H,   KC_J,   KC_K,     KC_L,     KC_SCLN,  KC_TRNS,
         OSL(ACC),   KC_N,   KC_M,   KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
@@ -203,49 +202,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
 ),
-
-/* Keymap 4: Base Colemak Mod-DH layer
- *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |   1  |   2  |   3  |   4  |   5  |      |           |      |   6  |   7  |   8  |   9  |   0  |        |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |   Q  |   W  |   F  |   P  |   B  |      |           |      |   J  |   L  |   U  |   Y  |   ;  |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |   A  |   R  |   S  |   T  |   G  |------|           |------|   M  |   N  |   E  |   I  |   O  |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |   Z  |   X  |   C  |   D  |   V  |      |           |      |   K  |   H  |   ,  |   .  |   :  |        |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      |      |      |      |       |
- *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        |      |      |       |      |      |
- *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       |      |      |      |
- *                                 |      |      |------|       |------|      |      |
- *                                 |      |      |      |       |      |      |      |
- *                                 `--------------------'       `--------------------'
- */
-
-[CLMK] = LAYOUT_ergodox(  // layer 0 : default
-        // left hand
-        KC_TRNS,    KC_1,       KC_2,   KC_3,   KC_4,   KC_5,   KC_TRNS,
-        KC_TRNS,    FR_Q,       FR_W,   KC_F,   KC_P,   KC_B,   KC_TRNS,
-        KC_TRNS,    FR_A,       KC_R,   KC_S,   KC_T,   KC_G,
-        KC_TRNS,    FR_Z,       KC_X,   KC_C,   KC_D,   KC_V,   KC_TRNS,
-        KC_TRNS,    KC_TRNS,    KC_TRNS,KC_TRNS,KC_TRNS,
-                                           KC_TRNS, KC_TRNS,
-                                                    KC_TRNS,
-                                 KC_SPACE, KC_TRNS, KC_TRNS,
-        // right hand
-        KC_TRNS,    KC_6,   KC_7,   KC_8,   KC_9,    KC_0,      KC_TRNS,
-        KC_TRNS,    KC_J,   KC_L,   KC_U,   KC_Y,    FR_SCLN,   KC_TRNS,
-                    FR_M,   KC_N,   KC_E,   KC_I,    KC_O,      KC_TRNS,
-        KC_TRNS,    KC_K,   KC_H,   FR_COMM,FR_DOT,  FR_COLN,   KC_TRNS,
-                            KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,   KC_TRNS,
-       KC_TRNS, KC_TRNS,
-       KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS
-                  ),
 
 
 /* Keymap 5: accented characters

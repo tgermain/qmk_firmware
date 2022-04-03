@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [SYMB]=LAYOUT_6x6(
     _______, KC_F1,   KC_F2,    KC_F3,    _______, _______,         _______,  _______,_______,  _______, _______, _______,
     _______, _______, _______,  _______,  _______, _______,         _______,  _______,_______,  _______, _______, _______,
-    _______, FR_LESS, FR_AT,    FR_LCBR,  FR_RCBR, FR_PIPE,         FR_UNDS,  KC_7,   KC_8,     KC_9,    FR_ASTR, _______,
+    _______, FR_LABK, FR_AT,    FR_LCBR,  FR_RCBR, FR_PIPE,         FR_UNDS,  KC_7,   KC_8,     KC_9,    FR_ASTR, _______,
     _______, FR_HASH, FR_DLR,   FR_LPRN,  FR_RPRN, FR_GRV,          FR_MINS,  KC_4,   KC_5,     KC_6,    FR_PLUS, _______,
     _______, FR_PERC, FR_CIRC,  FR_LBRC,  FR_RBRC, FR_TILD,         FR_EQL,   KC_1,   KC_2,     KC_3,    FR_BSLS, TG(GAME),
                       _______,  _______,                                      KC_0,   FR_DOT,

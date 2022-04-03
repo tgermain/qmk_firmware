@@ -5,7 +5,7 @@
 #define BASE 0
 #define SYMB 4
 #define GAME 5
-#define ACCENT 5
+#define ACCENT 6
 #define RESET_ACCESS 11
 #define RST_LR 12
 

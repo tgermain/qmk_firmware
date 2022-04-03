@@ -1,6 +1,5 @@
 #include QMK_KEYBOARD_H
 #include "debug.h"
-#include "action_layer.h"
 #include "keymap_french.h"
 
 #define LED_BRIGHTNESS_VLO 5
@@ -63,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTRL,           KC_LALT,    KC_LGUI,KC_LEFT,KC_RGHT,
                                               ALT_TAB,  KC_MPLY,
                                                               KC_HOME,
-                                              F(0), KC_BSPC,  KC_END,
+                                              LT(SYMB, KC_SPC), KC_BSPC,  KC_END,
         // right hand
         KC_TRNS,    KC_6,   KC_7,   KC_8,     KC_9,     KC_0,     KC_TRNS,
         TG(MDIA),   KC_Y,   KC_U,   KC_I,     KC_O,     KC_P,     KC_TRNS,
@@ -343,9 +342,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 // Other declarations would go here, separated by commas, if you have them
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-	[0] = ACTION_LAYER_TAP_KEY(SYMB, KC_SPC), // space when tap, hold : momentary Layer 1 (symbols)
-};
 
 
 //KC_CAPSLOCK

@@ -22,6 +22,8 @@
 #define M_UUMLT 11 // ü
 
 #define ALT_TAB LALT(KC_TAB)
+#define SP_SYMB LT(SYMB, KC_SPC)
+#define ESC_RSTA LT(RESET_ACCESS, KC_ESC)
 
 // empty layer
 // [RESET]=LAYOUT_6x6(
@@ -41,13 +43,13 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE]=LAYOUT_6x6(
-    F(1),    KC_MPRV, KC_MPLY,  KC_MNXT,  KC_F4,    KC_F5,              KC_F6,  KC_F7,  KC_F8,    KC_F9,   KC_F10,  KC_F11,
+    ESC_RSTA,KC_MPRV, KC_MPLY,  KC_MNXT,  KC_F4,    KC_F5,              KC_F6,  KC_F7,  KC_F8,    KC_F9,   KC_F10,  KC_F11,
     KC_TAB,  KC_1,    KC_2,     KC_3,     KC_4,     KC_5,               KC_6,   KC_7,   KC_8,     KC_9,    KC_0,    KC_F12,
     _______, FR_Q,    FR_W,     FR_F,     FR_P,     FR_B,               FR_J,   FR_L,   FR_U,     FR_Y,    US_SCLN, KC_MINS,
     KC_LSFT, FR_A,    FR_R,     FR_S,     FR_T,     FR_G,               FR_M,   FR_N,   FR_E,     FR_I,    KC_O,    US_DGRV,
     KC_LCTL, FR_X,    FR_C,     FR_D,     FR_V,     MEH_T(FR_Z),        FR_K,   FR_H,   KC_COMM,  KC_DOT,  KC_SLSH, US_ACUT,
                             KC_LEFT,  KC_RIGHT,                                               KC_UP,    KC_DOWN,
-                                          F(0),  KC_BSPC,                   KC_RSFT, KC_ENT,
+                                          SP_SYMB,  KC_BSPC,                   KC_RSFT, KC_ENT,
                                               KC_LCTRL,KC_LSFT,         KC_ALGR, KC_RGUI,
                                               KC_END, LALT_T(KC_HOME),  KC_PGUP, KC_PGDOWN
   ),
@@ -139,11 +141,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         _______, _______,         _______, _______
   ),
 
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-	[0] = ACTION_LAYER_TAP_KEY(SYMB, KC_SPC), // space when tap, hold : momentary Layer symbols
-	[1] = ACTION_LAYER_TAP_KEY(RESET_ACCESS, KC_ESC), // space when tap, hold : momentary Layer symbols
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)

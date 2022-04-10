@@ -157,6 +157,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 #define SP_SYMB LT(SYMB, KC_SPC)
 #define ESC_RSTA LT(RESET_ACCESS, KC_ESC)
+#define TMUX_LDR LCTL(FR_B)
 
 // empty layer
 // [RESET]=LAYOUT_6x6(
@@ -176,11 +177,11 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE]=LAYOUT_6x6(
-    ESC_RSTA,KC_MPRV, KC_MPLY,  KC_MNXT,  KC_F4,    KC_F5,              KC_F6,  KC_F7,  KC_F8,    KC_F9,   KC_F10,      KC_F11,
-    _______, KC_1,    KC_2,     KC_3,     KC_4,     KC_5,               KC_6,   KC_7,   KC_8,     KC_9,    KC_0,        KC_F12,
-    ALT_TAB, FR_Q,    FR_W,     FR_F,     FR_P,     FR_B,               FR_J,   FR_L,   FR_U,     FR_Y,    OSL(ACCENT), KC_DEL,
-    KC_TAB,  FR_A,    FR_R,     FR_S,     FR_T,     FR_G,               FR_M,   FR_N,   FR_E,     FR_I,    KC_O,        ALT_TAB,
-    KC_LALT, FR_X,    FR_C,     FR_D,     FR_V,     MEH_T(FR_Z),        FR_K,   FR_H,   FR_COMM,  FR_SCLN, FR_COLN,     FR_EXLM,
+    ESC_RSTA,   KC_MPRV, KC_MPLY,  KC_MNXT,  KC_F4,    KC_F5,              KC_F6,  KC_F7,  KC_F8,    KC_F9,   KC_F10,      KC_F11,
+    ALT_TAB,    KC_1,    KC_2,     KC_3,     KC_4,     KC_5,               KC_6,   KC_7,   KC_8,     KC_9,    KC_0,        KC_F12,
+    TMUX_LDR,FR_Q,    FR_W,     FR_F,     FR_P,     FR_B,               FR_J,   FR_L,   FR_U,     FR_Y,    OSL(ACCENT), KC_DEL,
+    KC_TAB,     FR_A,    FR_R,     FR_S,     FR_T,     FR_G,               FR_M,   FR_N,   FR_E,     FR_I,    KC_O,        ALT_TAB,
+    KC_LALT,    FR_X,    FR_C,     FR_D,     FR_V,     MEH_T(FR_Z),        FR_K,   FR_H,   FR_COMM,  FR_SCLN, FR_COLN,     FR_EXLM,
                             KC_LEFT,  KC_RIGHT,                                               KC_UP,    KC_DOWN,
                                           SP_SYMB,  KC_BSPC,                   TD(TD_LSFT_CLCK), KC_ENT,
                                               KC_LCTRL,KC_LSFT,         KC_ALGR, KC_RGUI,

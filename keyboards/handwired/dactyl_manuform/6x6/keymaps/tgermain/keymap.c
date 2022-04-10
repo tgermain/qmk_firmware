@@ -19,7 +19,12 @@ enum custom_keycodes {
   M_IUMLT,
   M_OUMLT,
   M_UUMLT,
+  ALT_TAB,
 };
+
+bool is_alt_tab_active = false; // ADD this near the begining of keymap.c
+uint16_t alt_tab_timer = 0;     // we will be using them soon.
+const uint16_t ALT_TAB_TIMEOUT = 500;     // we will be using them soon.
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -114,8 +119,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_O);
       }
       break;
+      case ALT_TAB:
+        if (record->event.pressed) {
+          if (!is_alt_tab_active) {
+            is_alt_tab_active = true;
+            register_code(KC_LALT);
+          }
+          alt_tab_timer = timer_read();
+          register_code(KC_TAB);
+        } else {
+          unregister_code(KC_TAB);
+        }
+        break;
   }
   return true;
+}
+
+void matrix_scan_user(void) { // The very important timer for alt-tab
+  if (is_alt_tab_active) {
+    if (timer_elapsed(alt_tab_timer) > ALT_TAB_TIMEOUT) {
+      unregister_code(KC_LALT);
+      is_alt_tab_active = false;
+    }
+  }
 }
 
 //Tap Dance Declarations
@@ -129,7 +155,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_LSFT_CLCK]  =  ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPSLOCK),
 };
 
-#define ALT_TAB LALT(KC_TAB)
 #define SP_SYMB LT(SYMB, KC_SPC)
 #define ESC_RSTA LT(RESET_ACCESS, KC_ESC)
 
@@ -153,7 +178,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE]=LAYOUT_6x6(
     ESC_RSTA,KC_MPRV, KC_MPLY,  KC_MNXT,  KC_F4,    KC_F5,              KC_F6,  KC_F7,  KC_F8,    KC_F9,   KC_F10,      KC_F11,
     _______, KC_1,    KC_2,     KC_3,     KC_4,     KC_5,               KC_6,   KC_7,   KC_8,     KC_9,    KC_0,        KC_F12,
-    _______, FR_Q,    FR_W,     FR_F,     FR_P,     FR_B,               FR_J,   FR_L,   FR_U,     FR_Y,    OSL(ACCENT), KC_DEL,
+    ALT_TAB, FR_Q,    FR_W,     FR_F,     FR_P,     FR_B,               FR_J,   FR_L,   FR_U,     FR_Y,    OSL(ACCENT), KC_DEL,
     KC_TAB,  FR_A,    FR_R,     FR_S,     FR_T,     FR_G,               FR_M,   FR_N,   FR_E,     FR_I,    KC_O,        ALT_TAB,
     KC_LALT, FR_X,    FR_C,     FR_D,     FR_V,     MEH_T(FR_Z),        FR_K,   FR_H,   FR_COMM,  FR_SCLN, FR_COLN,     FR_EXLM,
                             KC_LEFT,  KC_RIGHT,                                               KC_UP,    KC_DOWN,

@@ -118,6 +118,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+//Tap Dance Declarations
+enum {
+  TD_LSFT_CLCK,
+};
+
+//Tap Dance Definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+  //Tap once for shift, twice for caps lock
+  [TD_LSFT_CLCK]  =  ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPSLOCK),
+};
+
 #define ALT_TAB LALT(KC_TAB)
 #define SP_SYMB LT(SYMB, KC_SPC)
 #define ESC_RSTA LT(RESET_ACCESS, KC_ESC)
@@ -146,7 +157,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LSFT, FR_A,    FR_R,     FR_S,     FR_T,     FR_G,               FR_M,   FR_N,   FR_E,     FR_I,    KC_O,    _______,
     KC_LALT, FR_X,    FR_C,     FR_D,     FR_V,     MEH_T(FR_Z),        FR_K,   FR_H,   FR_COMM,  FR_SCLN, FR_COLN, FR_EXLM,
                             KC_LEFT,  KC_RIGHT,                                               KC_UP,    KC_DOWN,
-                                          SP_SYMB,  KC_BSPC,                   KC_RSFT, KC_ENT,
+                                          SP_SYMB,  KC_BSPC,                   TD(TD_LSFT_CLCK), KC_ENT,
                                               KC_LCTRL,KC_LSFT,         KC_ALGR, KC_RGUI,
                                               KC_HOME, KC_END,          KC_PGUP, KC_PGDOWN
   ),

@@ -240,3 +240,59 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+
+// led setup
+void keyboard_pre_init_user(void) {
+// Call the keyboard pre init code.
+// Set our LED pins as output.
+// Pro Micro LEDs are active low.
+setPinOutput(B0);
+setPinOutput(D5);
+}
+
+void dactyl_right_led_1_on(void) {
+  writePinLow(B0);
+}
+
+void dactyl_right_led_2_on(void) {
+  writePinLow(D5);
+}
+
+void dactyl_right_led_1_off(void) {
+  writePinHigh(B0);
+}
+
+void dactyl_right_led_2_off(void) {
+  writePinHigh(D5);
+}
+
+void dactyl_all_led_off(void) {
+  dactyl_right_led_1_off();
+  dactyl_right_led_2_off();
+}
+
+// Runs whenever there is a layer state change.
+// state is a 32 bit where each bit on is a layer activated
+// note that the base layer is always active which mean our first is always at 1
+uint32_t layer_state_set_user(uint32_t state) {
+  dactyl_all_led_off();
+  uint8_t current_layer = biton32(state);
+
+  switch (current_layer) {
+    case SYMB:
+      dactyl_right_led_1_on();
+      break;
+    case GAME:
+    case RESET_ACCESS:
+      dactyl_right_led_2_on();
+      break;
+    case ACCENT:
+    case RST_LR:
+      dactyl_right_led_1_on();
+      dactyl_right_led_2_on();
+      break;
+    default:
+      break;
+  }
+  return state;
+};

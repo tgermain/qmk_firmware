@@ -415,30 +415,22 @@ uint32_t layer_state_set_user(uint32_t state) {
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
 
-
-    // to set our leds on our off we rely on bitwise and mask operations
-    uint32_t symb_mask = 0x00000003; // last 8 bits : 0000 0011 -> base layer + layer 1
-    uint32_t mdia_mask = 0x00000005; // last 8 bits : 0000 0101 -> base layer + layer 2
-    uint32_t game_mask = 0x00000009; // last 8 bits : 0000 1001 -> base layer + layer 3
-    uint32_t accent_mask = 0x00000011; // last 8 bits : 0001 0001 -> base layer + layer 4
-
-    if (state & symb_mask) {
+    switch (biton32(state)) {
+      case SYMB:
         ergodox_right_led_3_on(); // blue led low for symbol layer
-    }
-
-    if (state & mdia_mask) {
+        break;
+      case MDIA:
         ergodox_right_led_2_on(); // green led low for media layer
-    }
-
-    if (state & game_mask) {
+        break;
+      case GAME:
         ergodox_right_led_1_on(); // red led low for game layer
-    }
-
-    if (state & accent_mask) {
+        break;
+      case ACC:
         ergodox_right_led_1_set(30); // red led high for accent layer
         ergodox_right_led_3_set(10); // green led high for accent layer
         ergodox_right_led_1_on();
         ergodox_right_led_3_on();
+        break;
     }
 
     return state;

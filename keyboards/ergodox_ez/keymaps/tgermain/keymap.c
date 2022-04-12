@@ -12,9 +12,12 @@ enum custom_keycodes {
   M_IUMLT,
   M_OUMLT,
   M_UUMLT,
+  ALT_TAB,
 };
 
-#define ALT_TAB LALT(KC_TAB)
+bool is_alt_tab_active = false; // ADD this near the begining of keymap.c
+uint16_t alt_tab_timer = 0;     // we will be using them soon.
+const uint16_t ALT_TAB_TIMEOUT = 500;     // we will be using them soon.
 
 //Tap Dance Declarations
 enum {
@@ -123,6 +126,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_O);
       }
       break;
+    case ALT_TAB:
+      if (record->event.pressed) {
+        if (!is_alt_tab_active) {
+          is_alt_tab_active = true;
+          register_code(KC_LALT);
+        }
+        alt_tab_timer = timer_read();
+        register_code(KC_TAB);
+      } else {
+        unregister_code(KC_TAB);
+      }
+      break;
     // shift + backspace -> delete
     case KC_BSPC:
       if (record->event.pressed) {
@@ -152,6 +167,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
   return true;
+}
+
+void matrix_scan_user(void) { // The very important timer for alt-tab
+  if (is_alt_tab_active) {
+    if (timer_elapsed(alt_tab_timer) > ALT_TAB_TIMEOUT) {
+      unregister_code(KC_LALT);
+      is_alt_tab_active = false;
+    }
+  }
 }
 
 #define LED_BRIGHTNESS_VLO 5

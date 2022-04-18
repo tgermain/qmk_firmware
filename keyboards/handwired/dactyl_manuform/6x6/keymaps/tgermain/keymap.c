@@ -215,7 +215,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                           _______, _______,         _______, _______
   ),
   [GAME]=LAYOUT_6x6(
-    KC_ESC,  KC_F1,   KC_F2,    KC_F3,    _______,  _______,        _______,  _______,  _______,  _______,  _______,  _______,
+    KC_ESC,  KC_F1,   KC_F2,    KC_F3,    _______,  _______,        KC_MPRV,  KC_MPLY,  KC_MNXT,  _______,  _______,  _______,
     FR_U,    KC_0,    KC_1,     KC_2,     KC_3,     KC_4,           _______,  _______,  _______,  _______,  _______,  _______,
     FR_I,    KC_TAB,  FR_A,     FR_Z,     FR_E,     FR_R,           FR_T,     FR_Y,     FR_U,     FR_I,     FR_O,     FR_P,
     FR_Y,    KC_LSFT, FR_Q,     FR_S,     FR_D,     FR_F,           FR_G,     FR_H,     FR_J,     FR_K,     FR_L,     _______,

@@ -175,16 +175,7 @@ void matrix_scan_user(void) { // The very important timer for alt-tab
   }
 }
 
-//Tap Dance Declarations
-enum {
-  TD_LSFT_CLCK,
-};
 
-//Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-  //Tap once for shift, twice for caps lock
-  [TD_LSFT_CLCK]  =  ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPSLOCK),
-};
 
 #define SP_SYMB LT(SYMB, KC_SPC)
 #define ESC_RSTA LT(RESET_ACCESS, KC_ESC)
@@ -198,7 +189,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-------+-------|   2   |   3   |   4   |   5   |          |   6   |   7   |   8   |   9   |-------+------|
  * |ALT_TAB|   1   |-------+-------+-------+-------|          |-------+-------+-------+-------|   0   | F12  |
  * |-------+-------|   W   |   F   |   P   |   B   |          |   J   |   L   |   U   |   Y   |-------+------|
- * |TMUX_LD|   Q   |-------+-------+-------+-------|          |-------+-------+-------+-------|accent |ALT_TA|
+ * |TMUX_LD|   Q   |-------+-------+-------+-------|          |-------+-------+-------+-------|accent |CAPSLO|
  * |-------+-------|   R   |   S   |   T   |   G   |          |   M   |   N   |   E   |   I   |-------+------|
  * |  TAB  |   A   |-------+-------+---------------|          |---------------+-------+-------|   O   |  .   |
  * |-------+-------|   C   |   D   |   V   | Z_meh |          |   K   |   H   |   ,   |   ;   |-------+------|
@@ -206,7 +197,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `---------------| LEFT  | RIGHT |                                          |  UP   | DOWN  |--------------'
  *                 `---------------'  ,-------.                    ,-------.  `---------------'
  *                                    |SP_SYMB|-------.    ,-------| enter |
- *                                    `-------+ BSPC  |    |caps(L)+-------'
+ *                                    `-------+ BSPC  |    |  TAB  +-------'
  *                                            `-------'    `-------'
  *                                   ,----------------.    ,----------------.
  *                                   | LCTRL |  LSFT  |    |  ALGR  | RGUI  |
@@ -216,11 +207,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE]=LAYOUT_6x6(
     ESC_RSTA, KC_F1,   KC_F2,    KC_F3,    KC_F4,    KC_F5,              KC_MPRV,KC_MPLY,KC_MNXT,  KC_F9,   KC_F10,      KC_F11,
     ALT_TAB,  KC_1,    KC_2,     KC_3,     KC_4,     KC_5,               KC_6,   KC_7,   KC_8,     KC_9,    KC_0,        KC_F12,
-    TMUX_LDR, FR_Q,    FR_W,     FR_F,     FR_P,     FR_B,               FR_J,   FR_L,   FR_U,     FR_Y,    OSL(ACCENT), ALT_TAB,
+    TMUX_LDR, FR_Q,    FR_W,     FR_F,     FR_P,     FR_B,               FR_J,   FR_L,   FR_U,     FR_Y,    OSL(ACCENT), KC_CAPSLOCK,
     KC_TAB,   FR_A,    FR_R,     FR_S,     FR_T,     FR_G,               FR_M,   FR_N,   FR_E,     FR_I,    FR_O,        FR_DOT,
     KC_LALT,  FR_X,    FR_C,     FR_D,     FR_V,     MEH_T(FR_Z),        FR_K,   FR_H,   FR_COMM,  FR_SCLN, FR_COLN,     FR_EXLM,
                             KC_LEFT,  KC_RIGHT,                                               KC_UP,    KC_DOWN,
-                                          SP_SYMB,  KC_BSPC,                   TD(TD_LSFT_CLCK), KC_ENT,
+                                          SP_SYMB,  KC_BSPC,                   KC_TAB, KC_ENT,
                                               KC_LCTRL,KC_LSFT,         KC_ALGR, KC_RGUI,
                                               KC_HOME, KC_END,          KC_PGUP, KC_PGDOWN
   ),
